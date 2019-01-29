@@ -101,7 +101,7 @@ Vec3f cast_ray(const Vec3f &orig, const Vec3f &dir, const std::vector<Sphere> &s
 
     if (depth>4 || !scene_intersect(orig, dir, spheres, point, N, material)) {
 
-        
+
         return Vec3f(envmap[600]); // background color
     }
 
@@ -170,6 +170,7 @@ int main() {
             envmap[i+j*envmap_width] = Vec3f(pixmap[(i+j*envmap_width)*3+0], pixmap[(i+j*envmap_width)*3+1], pixmap[(i+j*envmap_width)*3+2])*(1/255.);
         }
     }
+    
     stbi_image_free(pixmap);
 
     Material      ivory(1.0, Vec4f(0.6,  0.3, 0.1, 0.0), Vec3f(0.4, 0.4, 0.3),   50.);
