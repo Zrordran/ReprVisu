@@ -14,6 +14,9 @@
 #include "model.h"
 #include "geometry.h"
 
+//{ mkdir --parents build && cd build && cmake .. && make && ./tinyraytracer && open out.jpg && cd ..;  }
+
+
 int envmap_width, envmap_height;
 std::vector<Vec3f> envmap;
 Model duck("../duck.obj");
@@ -97,7 +100,9 @@ Vec3f cast_ray(const Vec3f &orig, const Vec3f &dir, const std::vector<Sphere> &s
     Material material;
 
     if (depth>4 || !scene_intersect(orig, dir, spheres, point, N, material)) {
-        return Vec3f(0.2, 0.7, 0.8); // background color
+
+        
+        return Vec3f(envmap[600]); // background color
     }
 
     Vec3f reflect_dir = reflect(dir, N).normalize();
