@@ -101,8 +101,13 @@ Vec3f cast_ray(const Vec3f &orig, const Vec3f &dir, const std::vector<Sphere> &s
 
     if (depth>4 || !scene_intersect(orig, dir, spheres, point, N, material)) {
 
-
-        return Vec3f(envmap[600]); // background color
+        Sphere env(Vec3f(0,0,0),100,Material());
+        float dist =0;
+        env.ray_intersect(orig,dir,dist);
+        Vec3f p = orig+dir*dist;
+        int lg = int((atan2(p.y,p.x)+M_PI)/(2*M_PI)*envmap_width);
+        int la = int((-asin(p.y/100)+M_PI/2)/M_PI*envmap_height);
+        return Vec3f(envmap[lg+la*envmap_height]); // background color
     }
 
     Vec3f reflect_dir = reflect(dir, N).normalize();
